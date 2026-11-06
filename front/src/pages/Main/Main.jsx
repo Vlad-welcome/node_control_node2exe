@@ -7,12 +7,12 @@ export const Main = () => {
   const [data, setData] = useState("");
 
   const onClick = async () => {
-    // axios
-    //   .get("api/main/data")
-    //   .then((res) => setData(res.data.data))
-    //   .catch((err) => console.log(err));
+    axios
+      .get("api/main/data")
+      .then((res) => setData(res.data.data))
+      .catch((err) => console.log(err));
 
-    axios.get("api/main/moveMouse");
+    // axios.get("api/main/moveMouse");
   };
 
   return (

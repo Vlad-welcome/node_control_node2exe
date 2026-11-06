@@ -13,6 +13,8 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 
 import mainRouter from "./routes/mainRouter.js";
 
+import { isSea } from "node:sea";
+
 const app = express();
 
 app.use(logger("dev"));
@@ -29,7 +31,12 @@ app.use("/api/main", mainRouter);
 const __dirname = __dirname;
 
 // ── Статика React ──
-const staticDir = path.join(__dirname, "..", "..", "front", "dist");
+let staticDir;
+if (isSea()) {
+  staticDir = path.join(__dirname, "..", "front", "dist"); //prod
+} else {
+  staticDir = path.join(__dirname, "..", "..", "front", "dist"); //dev
+}
 app.use(express.static(staticDir));
 
 // ── SPA-fallback: всё, что не /api и не файл → index.html ──
